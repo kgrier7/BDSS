@@ -32,7 +32,7 @@ class AsperaMechanism(SimpleSubprocessMechanism):
     def transfer_program(cls):
         return "ascp"
 
-    def _transfer_command(self, url, output_path):
+    def _transfer_command(self, url, partial_range, output_path):
 
         default_path_to_key = os.path.expandvars(os.path.join("$HOME", ".aspera", "connect", "etc", "asperaweb_id_dsa.openssh"))
         args = ["-i", default_path_to_key]
@@ -43,6 +43,9 @@ class AsperaMechanism(SimpleSubprocessMechanism):
                 args.append("-T")
         except KeyError:
             pass
+
+        if partial_range:
+            args.append("-@%d:%d" % (partial_range[0], partial_range[0] + partial_range[1]))
 
         # Remove scheme from URL
         parts = urlparse(url)

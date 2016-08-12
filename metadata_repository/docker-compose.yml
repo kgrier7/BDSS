@@ -14,7 +14,7 @@ services:
     command: ./scripts/serve --public
     environment:
       DATABASE_URL: postgresql+psycopg2://bdss:topsecret@db/bdss
-      SESSION_KEY:
+      SESSION_KEY: f6280677c10b606b5a9be96a06893b41d5e2e803075b6c08462f738b5883d2ef
     links:
       - db
     ports:
